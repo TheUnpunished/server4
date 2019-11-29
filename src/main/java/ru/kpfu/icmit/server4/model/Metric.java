@@ -6,10 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,8 +14,9 @@ import javax.persistence.SequenceGenerator;
 @Builder
 @Entity
 public class Metric {
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "nomenclatureIdGenerator")
-    @SequenceGenerator(name = "nomenclatureIdGenerator", sequenceName = "nomenclature_seq", allocationSize=1)
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "metricIdGenerator")
+    @SequenceGenerator(name = "metricIdGenerator", sequenceName = "metric_seq", allocationSize=1)
     private Long id;
     private String code;
     private String metricName;

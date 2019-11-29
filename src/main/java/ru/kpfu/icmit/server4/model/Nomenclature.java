@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import ru.kpfu.icmit.server4.model.soap.Content;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.UUID;
 import javax.persistence.*;
@@ -24,16 +25,18 @@ public class Nomenclature extends Content {
     private UUID uid;
     private String productName;
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createDate;
+    private Timestamp createDate;
     @Temporal(TemporalType.TIMESTAMP)
-    private Date modifyDate;
+    private Timestamp modifyDate;
+    @ManyToOne
+    @JoinColumn(name = "fk_nomenclature_metric")
     private Metric metric;
     private Boolean relevant;
 
     public Nomenclature(String productName, Metric metric) {
         this.uid = UUID.randomUUID();
-        this.createDate = Date.valueOf(LocalDate.now());
-        this.modifyDate = Date.valueOf(LocalDate.now());
+        this.createDate = new Timestamp(System.currentTimeMillis());
+        this.modifyDate = new Timestamp(System.currentTimeMillis());
         this.productName = productName;
         this.metric = metric;
         this.relevant = true;

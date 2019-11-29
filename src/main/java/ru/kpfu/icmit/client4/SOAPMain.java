@@ -10,12 +10,13 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
+import java.sql.Timestamp;
 
 public class SOAPMain {
 
     public static void main(String[] args) {
 
-        createEnveope();
+        createEnvelope();
 
         //Envelope envelope = readEnvelope();
         //System.out.println(envelope);
@@ -24,7 +25,7 @@ public class SOAPMain {
         sender.sendNomenclature(new File("envelope.xml"));
     }
 
-    public static void createEnveope() {
+    public static void createEnvelope() {
 
         Envelope envelope = new Envelope();
         Header header = new Header();
@@ -32,7 +33,11 @@ public class SOAPMain {
         envelope.setHeader(header);
         envelope.setBody(body);
 
-        Nomenclature nomenclature = new Nomenclature("Ж/Д вагон", null, null);
+        Nomenclature nomenclature = Nomenclature.builder()
+                .productName("Ж/Д Вагон")
+                .createDate(new Timestamp(System.currentTimeMillis()))
+                .modifyDate(new Timestamp(System.currentTimeMillis()))
+                .build();
 
         body.setContent(nomenclature);
 
