@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.kpfu.icmit.server4.model.soap.Content;
 
 import javax.persistence.*;
 
@@ -13,7 +14,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Contract{
+public class Contract extends Content {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contractIdGenerator")
     @SequenceGenerator(name = "contractIdGenerator", sequenceName = "contract_seq", allocationSize = 1)

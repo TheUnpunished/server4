@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.kpfu.icmit.server4.model.soap.Content;
 
 import javax.persistence.*;
 
@@ -13,7 +14,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Offer{
+public class Offer extends Content {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "offerIdGenerator")
     @SequenceGenerator(name = "offerIdGenerator", sequenceName = "offer_seq", allocationSize=1)
