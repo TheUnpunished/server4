@@ -1,9 +1,6 @@
 package ru.kpfu.icmit.server4.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import ru.kpfu.icmit.server4.model.soap.Content;
 
 import java.sql.Date;
@@ -28,6 +25,7 @@ public class Nomenclature extends Content {
     private Timestamp createDate;
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp modifyDate;
+
     @ManyToOne
     @JoinColumn(name = "fk_nomenclature_metric")
     private Metric metric;
