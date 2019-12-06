@@ -20,7 +20,8 @@ public class Demand extends Content {
     @SequenceGenerator(name = "demandIdGenerator", sequenceName = "demand_seq", allocationSize = 1)
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "fk_demand_nomenclature")
+    @JoinColumns(value = {@JoinColumn(referencedColumnName = "id")},
+            foreignKey = @ForeignKey(name = "fk_demand_nomenclature"))
     private Nomenclature nomenclature;
     private Integer count;
 }

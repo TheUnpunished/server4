@@ -20,7 +20,8 @@ public class Offer extends Content {
     @SequenceGenerator(name = "offerIdGenerator", sequenceName = "offer_seq", allocationSize=1)
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "fk_offer_nomenclature")
+    @JoinColumns(value = {@JoinColumn(referencedColumnName = "id")},
+            foreignKey = @ForeignKey(name = "fk_offer_nomenclature"))
     private Nomenclature nomenclature;
     private Double price;
     private Integer count;

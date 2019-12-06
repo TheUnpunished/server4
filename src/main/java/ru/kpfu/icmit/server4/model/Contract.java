@@ -20,19 +20,24 @@ public class Contract extends Content {
     @SequenceGenerator(name = "contractIdGenerator", sequenceName = "contract_seq", allocationSize = 1)
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "fk_contract_demand")
+    @JoinColumns(value = {@JoinColumn(referencedColumnName = "id")},
+            foreignKey = @ForeignKey(name = "fk_contract_demand"))
     private Demand demand;
     @ManyToOne
-    @JoinColumn(name = "fk_contract_offer")
+    @JoinColumns(value = {@JoinColumn(referencedColumnName = "id")},
+            foreignKey = @ForeignKey(name = "fk_contract_offer"))
     private Offer offer;
     @ManyToOne
-    @JoinColumn(name = "fk_contract_nomenclature")
+    @JoinColumns(value = {@JoinColumn(referencedColumnName = "id")},
+            foreignKey = @ForeignKey(name = "fk_contract_nomenclature"))
     private Nomenclature nomenclature;
     @ManyToOne
-    @JoinColumn(name = "fk_contract_organization_demanding")
+    @JoinColumns(value = {@JoinColumn(referencedColumnName = "id")},
+            foreignKey = @ForeignKey(name = "fk_contract_organization_demanding"))
     private Organization demandingOrg;
     @ManyToOne
-    @JoinColumn(name = "fk_contract_organization_offering")
+    @JoinColumns(value = {@JoinColumn(referencedColumnName = "id")},
+            foreignKey = @ForeignKey(name = "fk_contract_organization_offering"))
     private Organization offeringOrg;
     private Integer totalCount;
     private Double totalPrice;

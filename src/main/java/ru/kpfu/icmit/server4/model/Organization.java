@@ -12,7 +12,6 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Organization extends Content {
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "organizationIdGenerator")
     @SequenceGenerator(name = "organizationIdGenerator", sequenceName = "organization_seq", allocationSize=1)

@@ -1,10 +1,11 @@
-package ru.kpfu.icmit.server4.service;
+package ru.kpfu.icmit.server4.service.Impl;
 
 import org.hibernate.proxy.HibernateProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.kpfu.icmit.server4.model.Organization;
 import ru.kpfu.icmit.server4.repository.OrganizationRepository;
+import ru.kpfu.icmit.server4.service.OrganizationService;
 
 import java.util.List;
 @Service

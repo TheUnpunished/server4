@@ -3,12 +3,13 @@ package ru.kpfu.icmit.server4.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import ru.kpfu.icmit.server4.util.MyDateFormat;
 import ru.kpfu.icmit.server4.model.Nomenclature;
 import ru.kpfu.icmit.server4.model.NomenclatureList;
 import ru.kpfu.icmit.server4.model.soap.Body;
 import ru.kpfu.icmit.server4.model.soap.Envelope;
-import ru.kpfu.icmit.server4.repository.NomenclatureRepository;
+import ru.kpfu.icmit.server4.service.Impl.NomenclatureServiceImpl;
+import ru.kpfu.icmit.server4.service.NomenclatureService;
+import ru.kpfu.icmit.server4.util.MyDateFormat;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -21,7 +22,7 @@ public class NomenclatureController {
     private SimpleDateFormat simpleDateFormat = MyDateFormat.format;
 
     @Autowired
-    private NomenclatureRepository nomenclatureRepository;
+    private NomenclatureService nomenclatureService;
 
     @RequestMapping(value = "/nomenclature/add", method = RequestMethod.POST)
     @ResponseBody
@@ -30,7 +31,7 @@ public class NomenclatureController {
         if (envelope != null) {
             Nomenclature nomenclature = (Nomenclature) envelope.getBody().getContent();
             nomenclature.setModifyDate(new Timestamp(System.currentTimeMillis()));
-            nomenclature = nomenclatureRepository.save(nomenclature);
+            nomenclature = nomenclatureService.addNomenclature(nomenclature);
             envelope.getBody().setContent(nomenclature);
         }
         return envelope;
@@ -48,7 +49,7 @@ public class NomenclatureController {
             e.printStackTrace();
         }
 
-        List<Nomenclature> nomenclatures = nomenclatureRepository.getNomenclature(timestamp);
+        List<Nomenclature> nomenclatures = nomenclatureService.getNomenclaturesByModifyDateAfter(timestamp);
 
         Envelope envelope = new Envelope();
         Body body = new Body();
