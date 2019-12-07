@@ -31,22 +31,29 @@ public class NomenclatureController {
         if (envelope != null) {
             Nomenclature nomenclature = (Nomenclature) envelope.getBody().getContent();
             nomenclature.setModifyDate(new Timestamp(System.currentTimeMillis()));
+            nomenclature.setCreateDate(new Timestamp(System.currentTimeMillis()));
             nomenclature = nomenclatureService.addNomenclature(nomenclature);
             envelope.getBody().setContent(nomenclature);
         }
         return envelope;
     }
 
-    @RequestMapping(value = "/nomenclature/getAll", method = RequestMethod.POST)
+    @RequestMapping(value = "/nomenclature/getAllAfter", method = RequestMethod.GET)
     @ResponseBody
-    public Envelope addNomenclature(@RequestParam(name = "datefrom") String datefrom) {
-
+    public Envelope getNomenclaturesAfter(@RequestParam(name = "datefrom", defaultValue = "2019-01-01T00:00:00.0+03:00")
+                                                 String datefrom) {
         Timestamp timestamp = null;
         try {
             timestamp = new Timestamp(simpleDateFormat.
-                    parse("2019-01-01T00:00:00.0+03:00").getTime());
+                    parse(datefrom).getTime());
         } catch (ParseException e) {
             e.printStackTrace();
+            try {
+                timestamp = new Timestamp(simpleDateFormat.parse("2019-01-01T00:00:00.0+03:00").getTime());
+            }
+            catch (ParseException e1){
+                e1.printStackTrace();
+            }
         }
 
         List<Nomenclature> nomenclatures = nomenclatureService.getNomenclaturesByModifyDateAfter(timestamp);
@@ -60,5 +67,16 @@ public class NomenclatureController {
 
         return envelope;
     }
+    @RequestMapping(value = "/nomenclature/getAll", method = RequestMethod.GET)
+    @ResponseBody
+    public Envelope getNomenclatures(){
+        List<Nomenclature> nomenclatures = nomenclatureService.getNomenclatures();
+        Envelope envelope = new Envelope();
+        Body body = new Body();
 
+        NomenclatureList nomenclatureList = new NomenclatureList(nomenclatures);
+        body.setContent(nomenclatureList);
+        envelope.setBody(body);
+        return envelope;
+    }
 }

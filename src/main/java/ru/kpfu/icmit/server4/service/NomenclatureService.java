@@ -9,9 +9,9 @@ import java.util.UUID;
 public interface NomenclatureService {
     List<Nomenclature> getNomenclatures();
     Nomenclature addNomenclature(Nomenclature nomenclature);
-    Nomenclature updateNomenclature(Long id, Nomenclature nomenclature);
-    void deleteNomenclature(Long id);
-    Nomenclature getNomenclature(Long id);
+    Nomenclature updateNomenclature(Nomenclature nomenclature);
+    void deleteNomenclature(Nomenclature nomenclature);
+    Nomenclature getNomenclatureById(Long id);
     List<Nomenclature> getNomenclaturesByModifyDateAfter(Timestamp dateAfter);
     Nomenclature getNomenclatureByUid(UUID uid);
 }

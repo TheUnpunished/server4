@@ -33,18 +33,18 @@ public class NomenclatureServiceImpl implements NomenclatureService {
     }
 
     @Override
-    public Nomenclature updateNomenclature(Long id, Nomenclature nomenclature) {
-        return null;
+    public Nomenclature updateNomenclature(Nomenclature nomenclature) {
+        return nomenclatureRepository.save(nomenclature);
     }
 
     @Override
-    public void deleteNomenclature(Long id) {
-
+    public void deleteNomenclature(Nomenclature nomenclature) {
+        nomenclatureRepository.delete(nomenclature);
     }
 
     @Override
-    public Nomenclature getNomenclature(Long id) {
-        return null;
+    public Nomenclature getNomenclatureById(Long id) {
+        return nomenclatureRepository.findById(id).get();
     }
 
     @Override
@@ -54,6 +54,6 @@ public class NomenclatureServiceImpl implements NomenclatureService {
 
     @Override
     public Nomenclature getNomenclatureByUid(UUID uid) {
-        return null;
+        return nomenclatureRepository.getNomenclatureByUid(uid);
     }
 }

@@ -7,7 +7,7 @@ import java.util.List;
 public interface OrganizationService {
     List<Organization> getOrganizations();
     Organization addOrganization(Organization organization);
-    Organization updateOrganization(Long id, Organization organization);
-    void deleteOrganization(Long id);
-    Organization getOrganization(Long id);
+    Organization updateOrganization(Organization organization);
+    void deleteOrganization(Organization organization);
+    Organization getOrganizationById(Long id);
 }

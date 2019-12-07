@@ -7,7 +7,7 @@ import java.util.List;
 public interface DemandService {
     List<Demand> getDemands();
     Demand addDemand(Demand demand);
-    Demand updateDemand(Long id, Demand demand);
-    void deleteDemand(Long id);
-    Demand getDemand(Long id);
+    Demand updateDemand(Demand demand);
+    void deleteDemand(Demand demand);
+    Demand getDemandById(Long id);
 }

@@ -8,6 +8,9 @@ import ru.kpfu.icmit.server4.repository.OrganizationRepository;
 import ru.kpfu.icmit.server4.service.OrganizationService;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 @Service
 public class OrganizationServiceImpl implements OrganizationService {
 
@@ -16,7 +19,9 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Override
     public List<Organization> getOrganizations() {
-        return (List<Organization>) organizationRepository.findAll();
+        return StreamSupport
+                .stream(organizationRepository.findAll().spliterator(), false)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -25,20 +30,17 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     @Override
-    public Organization updateOrganization(Long id, Organization organization) {
-        Organization organization1 = organizationRepository.findById(id).get();
-        organization1.setId(organization.getId());
-        organization1.setName(organization.getName());
-        return organizationRepository.save(organization1);
+    public Organization updateOrganization(Organization organization) {
+        return organizationRepository.save(organization);
     }
 
     @Override
-    public void deleteOrganization(Long id) {
-        organizationRepository.deleteById(id);
+    public void deleteOrganization(Organization organization) {
+        organizationRepository.delete(organization);
     }
 
     @Override
-    public Organization getOrganization(Long id) {
+    public Organization getOrganizationById(Long id) {
         Organization organization = organizationRepository.findById(id).get();
 
         if (organization instanceof HibernateProxy){
