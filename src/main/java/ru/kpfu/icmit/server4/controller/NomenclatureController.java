@@ -7,7 +7,6 @@ import ru.kpfu.icmit.server4.model.Nomenclature;
 import ru.kpfu.icmit.server4.model.NomenclatureList;
 import ru.kpfu.icmit.server4.model.soap.Body;
 import ru.kpfu.icmit.server4.model.soap.Envelope;
-import ru.kpfu.icmit.server4.service.Impl.NomenclatureServiceImpl;
 import ru.kpfu.icmit.server4.service.NomenclatureService;
 import ru.kpfu.icmit.server4.util.MyDateFormat;
 

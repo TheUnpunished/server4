@@ -1,6 +1,7 @@
 package ru.kpfu.icmit.server4.service.Impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ru.kpfu.icmit.server4.model.Demand;
 import ru.kpfu.icmit.server4.repository.DemandRepository;
 import ru.kpfu.icmit.server4.service.DemandService;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+@Service
 public class DemandServiceImpl implements DemandService {
 
     @Autowired

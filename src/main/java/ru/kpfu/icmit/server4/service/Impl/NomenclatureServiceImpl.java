@@ -1,14 +1,12 @@
 package ru.kpfu.icmit.server4.service.Impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import ru.kpfu.icmit.server4.model.Nomenclature;
 import ru.kpfu.icmit.server4.repository.NomenclatureRepository;
 import ru.kpfu.icmit.server4.service.NomenclatureService;
 
 import java.sql.Timestamp;
-import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
