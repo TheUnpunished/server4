@@ -1,13 +1,13 @@
 package ru.kpfu.icmit.server4.service;
 
+import org.springframework.stereotype.Service;
 import ru.kpfu.icmit.server4.model.Metric;
+import ru.kpfu.icmit.server4.repository.MetricRepository;
 
-import java.util.List;
+@Service
+public class MetricService extends CrudServiceImpl<Metric, MetricRepository> {
 
-public interface MetricService {
-    List<Metric> getMetrics();
-    Metric addMetric(Metric metric);
-    Metric updateMetric(Metric metric);
-    void deleteMetric(Metric metric);
-    Metric getMetricById(Long id);
+    public MetricService(MetricRepository genericRepository) {
+        super(genericRepository);
+    }
 }

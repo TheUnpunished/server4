@@ -1,13 +1,13 @@
 package ru.kpfu.icmit.server4.service;
 
+import org.springframework.stereotype.Service;
 import ru.kpfu.icmit.server4.model.Organization;
+import ru.kpfu.icmit.server4.repository.OrganizationRepository;
 
-import java.util.List;
+@Service
+public class OrganizationService extends CrudServiceImpl<Organization, OrganizationRepository> {
 
-public interface OrganizationService {
-    List<Organization> getOrganizations();
-    Organization addOrganization(Organization organization);
-    Organization updateOrganization(Organization organization);
-    void deleteOrganization(Organization organization);
-    Organization getOrganizationById(Long id);
+    public OrganizationService(OrganizationRepository genericRepository) {
+        super(genericRepository);
+    }
 }

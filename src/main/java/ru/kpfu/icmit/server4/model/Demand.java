@@ -4,9 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.kpfu.icmit.server4.model.soap.Content;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 
 
 @NoArgsConstructor
@@ -14,11 +15,10 @@ import javax.persistence.*;
 @Data
 @Builder
 @Entity
-public class Demand extends Content {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "demandIdGenerator")
-    @SequenceGenerator(name = "demandIdGenerator", sequenceName = "demand_seq", allocationSize = 1)
-    private Long id;
+@XmlAccessorType(XmlAccessType.FIELD)
+@SequenceGenerator(name = "idGenerator", sequenceName = "demand_seq", allocationSize = 1)
+public class Demand extends IdEntity {
+
     @ManyToOne
     @JoinColumns(value = {@JoinColumn(referencedColumnName = "id")},
             foreignKey = @ForeignKey(name = "fk_demand_nomenclature"))

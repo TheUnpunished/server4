@@ -1,80 +1,67 @@
 package ru.kpfu.icmit.server4.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import ru.kpfu.icmit.server4.model.Nomenclature;
-import ru.kpfu.icmit.server4.model.NomenclatureList;
-import ru.kpfu.icmit.server4.model.soap.Body;
-import ru.kpfu.icmit.server4.model.soap.Envelope;
-import ru.kpfu.icmit.server4.service.NomenclatureService;
+import ru.kpfu.icmit.server4.service.NomenctlatureService;
 import ru.kpfu.icmit.server4.util.MyDateFormat;
+import ru.kpfu.icmit.server4.util.soap.Body;
+import ru.kpfu.icmit.server4.util.soap.Envelope;
+import ru.kpfu.icmit.server4.util.soap.XmlList;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
 
 @Controller
-public class NomenclatureController {
+@RequestMapping("/nomenclature")
+public class NomenclatureController extends AbstractController<Nomenclature, NomenctlatureService> {
 
-    private SimpleDateFormat simpleDateFormat = MyDateFormat.format;
-
-    @Autowired
-    private NomenclatureService nomenclatureService;
-
-    @RequestMapping(value = "/nomenclature/add", method = RequestMethod.POST)
-    @ResponseBody
-    public Envelope addNomenclature(@RequestBody Envelope envelope) {
-
-        if (envelope != null) {
-            Nomenclature nomenclature = (Nomenclature) envelope.getBody().getContent();
-            nomenclature.setModifyDate(new Timestamp(System.currentTimeMillis()));
-            nomenclature.setCreateDate(new Timestamp(System.currentTimeMillis()));
-            nomenclature = nomenclatureService.addNomenclature(nomenclature);
-            envelope.getBody().setContent(nomenclature);
-        }
-        return envelope;
+    protected NomenclatureController(NomenctlatureService service) {
+        super(service);
     }
 
-    @RequestMapping(value = "/nomenclature/getAllAfter", method = RequestMethod.GET)
+    private final SimpleDateFormat dateFormat = MyDateFormat.format;
+
+    @RequestMapping(value = "/getOneByUid", method = RequestMethod.GET)
     @ResponseBody
-    public Envelope getNomenclaturesAfter(@RequestParam(name = "datefrom", defaultValue = "2019-01-01T00:00:00.0+03:00")
-                                                 String datefrom) {
-        Timestamp timestamp = null;
-        try {
-            timestamp = new Timestamp(simpleDateFormat.
-                    parse(datefrom).getTime());
-        } catch (ParseException e) {
+    public Envelope getOneByUid(@RequestParam ("uid")String uid){
+        Envelope envelope = new Envelope();
+        Body body = new Body();
+        try{
+            UUID uuid = UUID.fromString(uid);
+            Optional<Nomenclature> nomenclature = service.getByUid(uuid);
+            if(nomenclature.isPresent()){
+                body.setContent(nomenclature.get());
+            }
+        }
+        catch (IllegalArgumentException | NullPointerException e){
             e.printStackTrace();
-            try {
-                timestamp = new Timestamp(simpleDateFormat.parse("2019-01-01T00:00:00.0+03:00").getTime());
-            }
-            catch (ParseException e1){
-                e1.printStackTrace();
-            }
         }
-
-        List<Nomenclature> nomenclatures = nomenclatureService.getNomenclaturesByModifyDateAfter(timestamp);
-
-        Envelope envelope = new Envelope();
-        Body body = new Body();
-
-        NomenclatureList nomenclatureList = new NomenclatureList(nomenclatures);
-        body.setContent(nomenclatureList);
         envelope.setBody(body);
-
         return envelope;
     }
-    @RequestMapping(value = "/nomenclature/getAll", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/getAllByModifyDateAfter", method = RequestMethod.GET)
     @ResponseBody
-    public Envelope getNomenclatures(){
-        List<Nomenclature> nomenclatures = nomenclatureService.getNomenclatures();
+    public Envelope getAllByModifyDateAfter(@RequestParam ("dateAfter") String dateAfter){
         Envelope envelope = new Envelope();
         Body body = new Body();
-
-        NomenclatureList nomenclatureList = new NomenclatureList(nomenclatures);
-        body.setContent(nomenclatureList);
+        XmlList<Nomenclature> xmlList = new XmlList<>();
+        try {
+            Timestamp timestamp = new Timestamp(dateFormat.parse(dateAfter).getTime());
+            xmlList.setList(service.getAllByModifyDateAfter(timestamp));
+            body.setContent(xmlList);
+        }
+        catch (ParseException | NullPointerException e){
+            e.printStackTrace();
+        }
         envelope.setBody(body);
         return envelope;
     }

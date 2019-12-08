@@ -1,11 +1,11 @@
-package ru.kpfu.icmit.server4.model.soap;
+package ru.kpfu.icmit.server4.util.soap;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.kpfu.icmit.server4.model.Contract;
 import ru.kpfu.icmit.server4.model.Nomenclature;
-import ru.kpfu.icmit.server4.model.NomenclatureList;
+import ru.kpfu.icmit.server4.util.soap.lists.NomenclatureList;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

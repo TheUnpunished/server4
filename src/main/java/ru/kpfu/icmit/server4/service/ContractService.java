@@ -1,13 +1,13 @@
 package ru.kpfu.icmit.server4.service;
 
+import org.springframework.stereotype.Service;
 import ru.kpfu.icmit.server4.model.Contract;
+import ru.kpfu.icmit.server4.repository.ContractRepository;
 
-import java.util.List;
+@Service
+public class ContractService extends CrudServiceImpl<Contract, ContractRepository> {
 
-public interface ContractService {
-    List<Contract> getContracts();
-    Contract addContract(Contract contract);
-    Contract updateContract(Contract contract);
-    void deleteContract(Contract contract);
-    Contract getContractById(Long id);
+    public ContractService(ContractRepository genericRepository) {
+        super(genericRepository);
+    }
 }

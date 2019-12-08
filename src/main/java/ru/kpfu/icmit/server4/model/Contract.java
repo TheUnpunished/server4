@@ -5,20 +5,19 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.kpfu.icmit.server4.model.soap.Content;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-public class Contract extends Content {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contractIdGenerator")
-    @SequenceGenerator(name = "contractIdGenerator", sequenceName = "contract_seq", allocationSize = 1)
-    private Long id;
+@XmlAccessorType(XmlAccessType.FIELD)
+@SequenceGenerator(name = "idGenerator", sequenceName = "contract_seq", allocationSize = 1)
+public class Contract extends IdEntity {
     @ManyToOne
     @JoinColumns(value = {@JoinColumn(referencedColumnName = "id")},
             foreignKey = @ForeignKey(name = "fk_contract_demand"))

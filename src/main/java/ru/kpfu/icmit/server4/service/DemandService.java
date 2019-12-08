@@ -1,13 +1,13 @@
 package ru.kpfu.icmit.server4.service;
 
+import org.springframework.stereotype.Service;
 import ru.kpfu.icmit.server4.model.Demand;
+import ru.kpfu.icmit.server4.repository.DemandRepository;
 
-import java.util.List;
+@Service
+public class DemandService extends CrudServiceImpl<Demand, DemandRepository> {
 
-public interface DemandService {
-    List<Demand> getDemands();
-    Demand addDemand(Demand demand);
-    Demand updateDemand(Demand demand);
-    void deleteDemand(Demand demand);
-    Demand getDemandById(Long id);
+    public DemandService(DemandRepository genericRepository) {
+        super(genericRepository);
+    }
 }
