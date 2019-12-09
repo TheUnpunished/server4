@@ -1,10 +1,8 @@
 package ru.kpfu.icmit.server4.controller;
 
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import ru.kpfu.icmit.server4.model.Nomenclature;
 import ru.kpfu.icmit.server4.service.NomenctlatureService;
 import ru.kpfu.icmit.server4.util.MyDateFormat;
@@ -29,7 +27,7 @@ public class NomenclatureController extends AbstractController<Nomenclature, Nom
 
     private final SimpleDateFormat dateFormat = MyDateFormat.format;
 
-    @RequestMapping(value = "/getOneByUid", method = RequestMethod.GET)
+    @RequestMapping(value = "/getOneByUid", method = RequestMethod.GET, produces = {MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
     public Envelope getOneByUid(@RequestParam ("uid")String uid){
         Envelope envelope = new Envelope();
@@ -48,7 +46,7 @@ public class NomenclatureController extends AbstractController<Nomenclature, Nom
         return envelope;
     }
 
-    @RequestMapping(value = "/getAllByModifyDateAfter", method = RequestMethod.GET)
+    @RequestMapping(value = "/getAllByModifyDateAfter", method = RequestMethod.GET, produces = {MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
     public Envelope getAllByModifyDateAfter(@RequestParam ("dateAfter") String dateAfter){
         Envelope envelope = new Envelope();
@@ -56,7 +54,7 @@ public class NomenclatureController extends AbstractController<Nomenclature, Nom
         XmlList<Nomenclature> xmlList = new XmlList<>();
         try {
             Timestamp timestamp = new Timestamp(dateFormat.parse(dateAfter).getTime());
-            xmlList.setList(service.getAllByModifyDateAfter(timestamp));
+            xmlList.setItems(service.getAllByModifyDateAfter(timestamp));
             body.setContent(xmlList);
         }
         catch (ParseException | NullPointerException e){
@@ -64,5 +62,20 @@ public class NomenclatureController extends AbstractController<Nomenclature, Nom
         }
         envelope.setBody(body);
         return envelope;
+    }
+
+    @Override
+    @ResponseBody
+    public Envelope add(@RequestBody Envelope envelope){
+        if(envelope != null){
+            Nomenclature nomenclature = (Nomenclature) envelope.getBody().getContent();
+            nomenclature.setCreateDate(new Timestamp(System.currentTimeMillis()));
+            nomenclature.setModifyDate(new Timestamp(System.currentTimeMillis()));
+            service.add(nomenclature);
+            return envelope;
+        }
+        else {
+            return new Envelope();
+        }
     }
 }

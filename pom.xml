@@ -6,11 +6,9 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.2.2.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>ru.kpfu.icmit</groupId>
 	<artifactId>server4</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>server4</name>
 	<description>Server for central</description>
@@ -65,10 +63,14 @@
 	</dependencies>
 
 	<build>
+		<finalName>server4</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>ru.kpfu.icmit.server4.Server4Application</mainClass>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
