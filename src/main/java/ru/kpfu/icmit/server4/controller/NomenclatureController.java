@@ -71,6 +71,10 @@ public class NomenclatureController extends AbstractController<Nomenclature, Nom
             Nomenclature nomenclature = (Nomenclature) envelope.getBody().getContent();
             nomenclature.setCreateDate(new Timestamp(System.currentTimeMillis()));
             nomenclature.setModifyDate(new Timestamp(System.currentTimeMillis()));
+            nomenclature.setUid(UUID.randomUUID());
+            while (service.getByUid(nomenclature.getUid()).isPresent()){
+                nomenclature.setUid(UUID.randomUUID());
+            }
             service.add(nomenclature);
             return envelope;
         }
