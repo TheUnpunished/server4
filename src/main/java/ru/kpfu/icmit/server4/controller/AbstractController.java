@@ -7,6 +7,7 @@ import ru.kpfu.icmit.server4.util.soap.Body;
 import ru.kpfu.icmit.server4.util.soap.Envelope;
 import ru.kpfu.icmit.server4.util.soap.XmlList;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,10 +58,17 @@ public class AbstractController<T extends BaseEntity, S extends CrudService<T>> 
 
     @Override
     public Envelope getOneById(String id) {
-        Long idLong = Long.parseLong(id);
         Envelope envelope = new Envelope();
         Body body = new Body();
-        if(idLong != -1){
+        Long idLong;
+        try{
+            idLong = Long.parseLong(id);
+        }
+        catch (NumberFormatException e){
+            e.printStackTrace();
+            idLong = Integer.toUnsignedLong(0);
+        }
+        if(idLong > 0){
             Optional<T> item = service.getOneById(idLong);
             if(item.isPresent()){
                 body.setContent(item.get());

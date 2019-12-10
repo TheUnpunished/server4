@@ -23,7 +23,7 @@ public interface GenericController<T extends BaseEntity> {
 
     @RequestMapping(value = "/getOneById", method = RequestMethod.GET, produces = {MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
-    public Envelope getOneById(@RequestParam(name = "id", defaultValue = "-1") String id);
+    public Envelope getOneById(@RequestParam(name = "id", defaultValue = "0") String id);
 
     @RequestMapping(value = "/get", method = RequestMethod.POST, produces = {MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
