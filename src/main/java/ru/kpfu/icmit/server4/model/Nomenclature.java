@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 import ru.kpfu.icmit.server4.util.MyDateFormat;
 import ru.kpfu.icmit.server4.util.TimestampAdapter;
 
@@ -29,6 +30,7 @@ public class Nomenclature extends IdEntity {
     @XmlJavaTypeAdapter(TimestampAdapter.class)
     private Timestamp modifyDate;
 
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @ManyToOne
     @JoinColumns(value = {@JoinColumn(referencedColumnName = "id")},
             foreignKey = @ForeignKey(name = "fk_nomenclature_metric"))
