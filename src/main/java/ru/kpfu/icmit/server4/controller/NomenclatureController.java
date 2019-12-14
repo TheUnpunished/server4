@@ -10,6 +10,7 @@ import ru.kpfu.icmit.server4.util.soap.Body;
 import ru.kpfu.icmit.server4.util.soap.Envelope;
 import ru.kpfu.icmit.server4.util.soap.XmlList;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -27,9 +28,10 @@ public class NomenclatureController extends AbstractController<Nomenclature, Nom
 
     private final SimpleDateFormat dateFormat = MyDateFormat.format;
 
-    @RequestMapping(value = "/getOneByUid", method = RequestMethod.GET, produces = {MediaType.APPLICATION_XML_VALUE})
+
+    @RequestMapping(value = "/getOneByUid", method = RequestMethod.POST, produces = {MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
-    public Envelope getOneByUid(@RequestParam ("uid")String uid){
+    public Envelope getOneByUid(@RequestBody String uid){
         Envelope envelope = new Envelope();
         Body body = new Body();
         try{
@@ -46,18 +48,18 @@ public class NomenclatureController extends AbstractController<Nomenclature, Nom
         return envelope;
     }
 
-    @RequestMapping(value = "/getAllByModifyDateAfter", method = RequestMethod.GET, produces = {MediaType.APPLICATION_XML_VALUE})
+    @RequestMapping(value = "/getAllByModifyDateAfter", method = RequestMethod.POST, produces = {MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
-    public Envelope getAllByModifyDateAfter(@RequestParam ("dateAfter") String dateAfter){
+    public Envelope getAllByModifyDateAfter(@RequestBody String dateAfter){
         Envelope envelope = new Envelope();
         Body body = new Body();
         XmlList<Nomenclature> xmlList = new XmlList<>();
         try {
-            Timestamp timestamp = new Timestamp(dateFormat.parse(dateAfter).getTime());
+            Timestamp timestamp = new Timestamp(MyDateFormat.format.parse(dateAfter).getTime());
             xmlList.setItems(service.getAllByModifyDateAfter(timestamp));
             body.setContent(xmlList);
         }
-        catch (ParseException | NullPointerException e){
+        catch (NullPointerException | ParseException e){
             e.printStackTrace();
         }
         envelope.setBody(body);
