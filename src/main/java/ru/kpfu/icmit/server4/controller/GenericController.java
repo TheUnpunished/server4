@@ -9,7 +9,7 @@ import java.awt.*;
 
 public interface GenericController<T extends BaseEntity> {
 
-    @RequestMapping(value = "/getAll", method = RequestMethod.GET, produces = {MediaType.APPLICATION_XML_VALUE})
+    @RequestMapping(value = "/getAll", method = RequestMethod.POST, produces = {MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
     public Envelope getAll();
 
@@ -21,9 +21,9 @@ public interface GenericController<T extends BaseEntity> {
     @ResponseBody
     public Envelope add(@RequestBody Envelope envelope);
 
-    @RequestMapping(value = "/getOneById", method = RequestMethod.GET, produces = {MediaType.APPLICATION_XML_VALUE})
+    @RequestMapping(value = "/getOneById", method = RequestMethod.POST, produces = {MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
-    public Envelope getOneById(@RequestParam(name = "id", defaultValue = "0") String id);
+    public Envelope getOneById(@RequestBody String id);
 
     @RequestMapping(value = "/get", method = RequestMethod.POST, produces = {MediaType.APPLICATION_XML_VALUE})
     @ResponseBody

@@ -25,21 +25,25 @@ public class Contract extends IdEntity {
     @JoinColumns(value = {@JoinColumn(referencedColumnName = "id")},
             foreignKey = @ForeignKey(name = "fk_contract_demand"))
     private Demand demand;
+
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @ManyToOne
     @JoinColumns(value = {@JoinColumn(referencedColumnName = "id")},
             foreignKey = @ForeignKey(name = "fk_contract_offer"))
     private Offer offer;
+
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @ManyToOne
     @JoinColumns(value = {@JoinColumn(referencedColumnName = "id")},
             foreignKey = @ForeignKey(name = "fk_contract_nomenclature"))
     private Nomenclature nomenclature;
+
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @ManyToOne
     @JoinColumns(value = {@JoinColumn(referencedColumnName = "id")},
             foreignKey = @ForeignKey(name = "fk_contract_organization_demanding"))
     private Organization demandingOrg;
+
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @ManyToOne
     @JoinColumns(value = {@JoinColumn(referencedColumnName = "id")},

@@ -12,10 +12,10 @@ import java.util.UUID;
 
 public interface NomenclatureRepository extends GenericRepository<Nomenclature> {
 
-    @Query("select n from Nomenclature n where uid = :uid ")
+    @Query("select n from Nomenclature n where n.uid = :uid ")
     Optional<Nomenclature> getByUid(@Param("uid") UUID uid);
 
-    @Query("select n from Nomenclature n where modifyDate >= :dateAfter ")
+    @Query("select n from Nomenclature n where n.modifyDate >= :dateAfter ")
     List<Nomenclature> getAllByModifyDateAfter(@Param("dateAfter") Timestamp dateAfter);
 
     @Transactional
