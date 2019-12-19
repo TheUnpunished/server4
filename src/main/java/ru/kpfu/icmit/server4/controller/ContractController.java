@@ -6,9 +6,9 @@ import ru.kpfu.icmit.server4.service.ContractService;
 import ru.kpfu.icmit.server4.util.soap.lists.ContractList;
 
 @RequestMapping("/contract")
-public class СontractController extends AbstractController<Contract, ContractService, ContractList> {
+public class ContractController extends AbstractController<Contract, ContractService, ContractList> {
 
-    protected СontractController(ContractService service) {
+    protected ContractController(ContractService service) {
         super(service);
     }
 }
