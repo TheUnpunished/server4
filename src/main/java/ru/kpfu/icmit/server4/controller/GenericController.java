@@ -9,7 +9,7 @@ import java.awt.*;
 
 public interface GenericController<T extends BaseEntity> {
 
-    @RequestMapping(value = "/getAll", method = RequestMethod.POST, produces = {MediaType.APPLICATION_XML_VALUE})
+    @RequestMapping(value = "/getAll", method = RequestMethod.GET, produces = {MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
     public Envelope getAll();
 

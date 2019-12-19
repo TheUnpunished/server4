@@ -9,6 +9,7 @@ import ru.kpfu.icmit.server4.util.MyDateFormat;
 import ru.kpfu.icmit.server4.util.soap.Body;
 import ru.kpfu.icmit.server4.util.soap.Envelope;
 import ru.kpfu.icmit.server4.util.soap.XmlList;
+import ru.kpfu.icmit.server4.util.soap.lists.NomenclatureList;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -20,7 +21,7 @@ import java.util.UUID;
 
 @Controller
 @RequestMapping("/nomenclature")
-public class NomenclatureController extends AbstractController<Nomenclature, NomenctlatureService> {
+public class NomenclatureController extends AbstractController<Nomenclature, NomenctlatureService, NomenclatureList> {
 
     protected NomenclatureController(NomenctlatureService service) {
         super(service);
@@ -53,10 +54,10 @@ public class NomenclatureController extends AbstractController<Nomenclature, Nom
     public Envelope getAllByModifyDateAfter(@RequestBody String dateAfter){
         Envelope envelope = new Envelope();
         Body body = new Body();
-        XmlList<Nomenclature> xmlList = new XmlList<>();
+        NomenclatureList xmlList = new NomenclatureList();
         try {
             Timestamp timestamp = new Timestamp(MyDateFormat.format.parse(dateAfter).getTime());
-            xmlList.setItems(service.getAllByModifyDateAfter(timestamp));
+            xmlList.setList(service.getAllByModifyDateAfter(timestamp));
             body.setContent(xmlList);
         }
         catch (NullPointerException | ParseException e){

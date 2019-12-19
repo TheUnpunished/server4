@@ -11,7 +11,7 @@ import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 
-public class AbstractController<T extends BaseEntity, S extends CrudService<T>> implements GenericController<T>{
+public class AbstractController<T extends BaseEntity, S extends CrudService<T>, L extends XmlList<T>> implements GenericController<T>{
 
     protected final S service;
 
@@ -26,7 +26,7 @@ public class AbstractController<T extends BaseEntity, S extends CrudService<T>> 
         Body body = new Body();
         Envelope envelope = new Envelope();
         List<T> list = service.getAll();
-        XmlList<T> xmlList = new XmlList<>(list);
+        L xmlList = (L) XmlList.fromList(list);
         body.setContent(xmlList);
         envelope.setBody(body);
         return envelope;
