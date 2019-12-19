@@ -4,9 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.kpfu.icmit.server4.model.*;
-import ru.kpfu.icmit.server4.util.soap.lists.NomenclatureList;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElements;
 import java.util.List;
 
 @Data
@@ -14,6 +16,8 @@ import java.util.List;
 @NoArgsConstructor
 @XmlAccessorType(XmlAccessType.FIELD)
 public class XmlList<T> extends Content {
+
+
     @XmlElements(value = {
             @XmlElement(name = "nomenclature", type = Nomenclature.class),
             @XmlElement(name = "contract", type = Contract.class),
@@ -27,4 +31,5 @@ public class XmlList<T> extends Content {
     public static XmlList fromList(List list){
         return new XmlList(list);
     }
+
 }

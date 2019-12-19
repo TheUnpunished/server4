@@ -21,11 +21,11 @@ public class Body {
             @XmlElement(name = "metric", type = Metric.class),
             @XmlElement(name = "offer", type = Offer.class),
             @XmlElement(name = "organization", type = Organization.class),
-            @XmlElement(name = "nomenclatures", type = NomenclatureList.class),
             @XmlElement(name = "contracts", type = ContractList.class),
             @XmlElement(name = "demands", type = DemandList.class),
             @XmlElement(name = "metrics", type = MetricList.class),
-            @XmlElement(name = "offers", type = Offer.class),
+            @XmlElement(name = "nomenclatures", type = NomenclatureList.class),
+            @XmlElement(name = "offers", type = OfferList.class),
             @XmlElement(name = "organizations", type = OrgranizationList.class)
     })
 
